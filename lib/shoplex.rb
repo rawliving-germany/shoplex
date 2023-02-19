@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "shoplex/version"
+require_relative "shoplex/booking"
 require_relative "shoplex/invoice_booking_converter"
 require_relative "shoplex/shopware_csv_parser"
 require_relative "shoplex/shopware_invoice"

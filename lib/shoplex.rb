@@ -2,6 +2,7 @@
 
 require_relative "shoplex/version"
 require_relative "shoplex/shopware_csv_parser"
+require_relative "shoplex/shopware_invoice"
 
 module Shoplex
   class Error < StandardError; end

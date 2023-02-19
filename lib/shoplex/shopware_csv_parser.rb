@@ -4,9 +4,11 @@ module Shoplex
   class ShopwareCSVParser
     class Result
       attr_accessor :valid_invoices, :invalid_invoices
+      attr_accessor :invoices
 
       def initialize
         @valid_invoices, @invalid_invoices = 0 ,0
+        @invoices = []
       end
     end
 
@@ -16,12 +18,17 @@ module Shoplex
       CSV.parse(csv_file_content, headers: true, col_sep: ';') do |row|
         if row['invoiceNumber']
           result.valid_invoices += 1
+          result.invoices << create_invoice_from(row: row)
         else
           result.invalid_invoices += 1
         end
       end
 
       return result
+    end
+
+    def self.create_invoice_from(row:)
+      ShopwareInvoice.new
     end
   end
 end

@@ -8,5 +8,9 @@ class TestInvoiceBookingConverter < Minitest::Test
     result = Shoplex::InvoiceBookingConverter.convert(invoices: [invoice])
     assert_equal Shoplex::Booking, result.first.class
   end
+
+  def test_it_creates_3_lines_from_double_taxed_invoice
+    assert false
+  end
 end
 

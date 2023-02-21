@@ -12,7 +12,7 @@ module Shoplex
   class Error < StandardError; end
 
   def self.process file_content
-    shopware_invoices = Shoplex::ShopwareCSVParser.parse(file_content)
+    shopware_invoices = Shoplex::ShopwareCSVParser.parse(file_content).invoices
     bookings = Shoplex::InvoiceBookingConverter.convert(invoices: shopware_invoices)
     return "\n"
   end

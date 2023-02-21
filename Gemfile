@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-#ruby=3.2.1
-ruby "3.2.1"
+ruby "3.2.1" # for CI to work, needs to match .github/workflows/ruby.yml
 
 source "https://rubygems.org"
 

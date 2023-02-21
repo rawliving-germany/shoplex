@@ -16,7 +16,11 @@ class TestAccountNumber < Minitest::Test
   end
 
   def test_that_it_gets_umlaut_receiver_right
-    assert_equal 10100, Shoplex::AccountNumber::sending_gross(lastname: 'Ümasch')
+    assert_equal 12000, Shoplex::AccountNumber::sending_gross(lastname: 'Ümasch')
+  end
+
+  def test_that_it_strips_lastnames
+    assert_equal 11200, Shoplex::AccountNumber::sending_gross(lastname: '   Margin')
   end
 
   def test_that_it_raises_on_weird_chars

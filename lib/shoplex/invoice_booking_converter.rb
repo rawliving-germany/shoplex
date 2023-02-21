@@ -5,7 +5,7 @@ module Shoplex
         booking = Booking.new
 
         add_gross_booking_line(invoice:, booking:)
-        add_tax7_booking_line(invoice:, booking:)
+        add_tax07_booking_line(invoice:, booking:)
         add_tax19_booking_line(invoice:, booking:)
 
         booking
@@ -20,7 +20,7 @@ module Shoplex
                                                         reference: '')
     end
 
-    def self.add_tax7_booking_line(...)
+    def self.add_tax07_booking_line(...)
       self.add_gross_booking_line(...)
     end
 

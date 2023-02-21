@@ -29,8 +29,9 @@ module Shoplex
 
     def self.create_invoice_from(row:)
       ShopwareInvoice.new(invoice_number: row["invoiceNumber"],
-                          order_number: row['orderNumber'],
-                          order_time: row['orderTime'])
+                          order_number:   row['orderNumber'],
+                          order_time:     row['orderTime'],
+                          invoice_amount: row['invoiceAmount'])
     end
   end
 end

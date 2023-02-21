@@ -16,7 +16,7 @@ module Shoplex
       booking.booking_lines << Shoplex::BookingLine.new(date: Time.now,
                                                         sending_account: 0,
                                                         receiving_account: 0,
-                                                        gross_amount: 0,
+                                                        gross_amount: invoice.invoice_amount,
                                                         reference: '')
     end
 

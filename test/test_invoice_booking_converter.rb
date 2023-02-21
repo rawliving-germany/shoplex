@@ -14,5 +14,11 @@ class TestInvoiceBookingConverter < Minitest::Test
     result = Shoplex::InvoiceBookingConverter.convert(invoices: [invoice])
     assert_equal 3, result.first.booking_lines.count
   end
+
+  def test_it_gets_the_gross_amount_right
+    invoice = Shoplex::ShopwareInvoice.new(invoice_amount: '12')
+    result = Shoplex::InvoiceBookingConverter.convert(invoices: [invoice])
+    assert_equal "12", result.first.booking_lines.first.gross_amount
+  end
 end
 

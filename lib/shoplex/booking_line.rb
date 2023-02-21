@@ -1,8 +1,8 @@
 module Shoplex
-  BookingLine = Struct.new(:date,
-                           :sending_account, :receiving_account, :gross_amount,
+  BookingLine = Struct.new(:sending_account, :receiving_account, :gross_amount,
                            :reference,
                            :type,
+                           :booking,
                            keyword_init:true)
 
   module BookingLine::Types

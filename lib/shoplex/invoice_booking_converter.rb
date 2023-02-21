@@ -2,7 +2,7 @@ module Shoplex
   class InvoiceBookingConverter
     def self.convert(invoices:)
       [*invoices].map do |invoice|
-        booking = Booking.new
+        booking = Booking.new(date: invoice.order_time)
 
         add_gross_booking_line(invoice:, booking:)
         add_tax07_booking_line(invoice:, booking:)
@@ -13,11 +13,11 @@ module Shoplex
     end
 
     def self.add_gross_booking_line(invoice:, booking:)
-      booking.booking_lines << Shoplex::BookingLine.new(date: Time.now,
-                                                        sending_account: 0,
-                                                        receiving_account: 0,
-                                                        gross_amount: invoice.invoice_amount,
-                                                        reference: '')
+      booking.add_line Shoplex::BookingLine.new(sending_account: 0,
+                                                receiving_account: 0,
+                                                gross_amount: invoice.invoice_amount,
+                                                reference: '',
+                                                type: BookingLine::Types::GROSS)
     end
 
     def self.add_tax07_booking_line(...)

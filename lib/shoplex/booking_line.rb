@@ -1,11 +1,14 @@
-class Shoplex::BookingLine
-  attr_accessor :date, :sending_account, :receiving_account, :gross_amount, :reference
+module Shoplex
+  BookingLine = Struct.new(:date,
+                           :sending_account, :receiving_account, :gross_amount,
+                           :reference,
+                           :type,
+                           keyword_init:true)
 
-  def initialize date:, sending_account:, receiving_account:, gross_amount:, reference:
-    @date = date
-    @sending_account = sending_account
-    @receiving_account = receiving_account
-    @gross_amount = gross_amount
-    @reference = reference
+  module BookingLine::Types
+    GROSS = :gross
+    TAX00 = :tax00
+    TAX07 = :tax07
+    TAX19 = :tax19
   end
 end

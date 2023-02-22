@@ -8,6 +8,8 @@ It supports the management of cash flow in Lexware.
 
 The solution is specific for one customers needs. If you need a similar (or better) solution, contact us!
 
+It is hacked in pretty vanilla (and as of writing, recent) Ruby 3.2.1+ .
+
 ## Installation
 
 Install it yourself as:

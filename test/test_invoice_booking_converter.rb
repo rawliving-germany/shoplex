@@ -42,6 +42,7 @@ class TestInvoiceBookingConverter < Minitest::Test
     booking = result.first
     line = booking.line(type: :gross)
 
+    assert_equal     0, line.sending_account
     assert_equal 10600, line.receiving_account
     assert_equal "12", result.first.booking_lines.first.gross_amount
   end

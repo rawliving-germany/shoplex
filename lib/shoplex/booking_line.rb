@@ -22,6 +22,4 @@ module Shoplex
       [GROSS, TAX00, TAX07, TAX19].include? type
     end
   end
-
-
 end

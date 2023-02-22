@@ -30,26 +30,34 @@ Customer accounts are hard coded.
 
 ## Open questions and/or answers
 
-*Which invoices or orders to take into account?*
+**How to deal with credits/Gutschriften**
 
-Take **all invoices** (irrespective of orderStatus and paymentStatus)
+*We don't know yet*
 
-*Some invoices have 0 amount and/or a gutschrift - where do they come from?*
+**Does EU-ity depend on shipping or billing address*
 
-**We don't know yet**
+*We don't know yet*
 
-*Where is the tax of the shipping costs?*
+**Some invoices have 0 amount and/or a gutschrift - where do they come from?**
+
+*We don't know yet*
+
+**Where is the tax of the shipping costs?**
 
 The **invoiceAmount is inclusive the invoiceShipping**
 Taxes of the shipping is not included in the individual tax columns but calculated via percentage (anteilsmäßig).
 
-*Does Lexware needs gross or net numbers?*
+**Which invoices or orders to take into account?**
+
+Take **all invoices** (irrespective of orderStatus and paymentStatus)
+
+**Does Lexware needs gross or net numbers?**
 
 Lexware takes **gross** numbers
 
-*Do we need to book the discount?*
+**Do we need to book the discount?**
 
-**We don't know yet**
+No.
 
 ## Other
 

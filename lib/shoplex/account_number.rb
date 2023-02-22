@@ -12,12 +12,15 @@ class Shoplex::AccountNumber
     10_000 + ordinal * 100
   end
 
-  def self.receiving_tax0(eu:)
+  def self.receiving_tax00(eu:)
+    8120
   end
 
-  def self.receiving_tax7(eu:)
+  def self.receiving_tax07(eu:)
+    eu ? 8300 : 8310
   end
 
   def self.receiving_tax19(eu:)
+    eu ? 8400 : 8315
   end
 end

@@ -13,8 +13,8 @@ module Shoplex
     end
 
     def self.add_gross_booking_line(invoice:, booking:)
-      booking.add_line Shoplex::BookingLine.new(sending_account: 0,
-                                                receiving_account: Shoplex::AccountNumber::sending_gross(lastname: invoice.lastname),
+      booking.add_line Shoplex::BookingLine.new(sending_account: Shoplex::AccountNumber::sending_gross(lastname: invoice.lastname),
+                                                receiving_account: 0,
                                                 gross_amount: invoice.invoice_amount,
                                                 reference: '',
                                                 type: BookingLine::Types::GROSS)
@@ -30,8 +30,8 @@ module Shoplex
 
     def self.add_tax07_booking_line(invoice:, booking:)
       booking.add_line Shoplex::BookingLine.new(sending_account: 0,
-                                                receiving_account: Shoplex::AccountNumber::sending_gross(lastname: invoice.lastname),
-                                                gross_amount: invoice.invoice_amount,
+                                                receiving_account: Shoplex::AccountNumber::receiving_tax07(eu: true),
+                                                gross_amount: invoice.tax07_amount,
                                                 reference: '',
                                                 type: BookingLine::Types::TAX07)
     end

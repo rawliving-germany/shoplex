@@ -5,5 +5,8 @@ module Shoplex
                                :country,
                                :order_time,
                                :invoice_amount,
+                               :tax00_amount,
+                               :tax07_amount,
+                               :tax19_amount,
                                keyword_init: true)
 end

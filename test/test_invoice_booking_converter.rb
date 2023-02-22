@@ -42,9 +42,33 @@ class TestInvoiceBookingConverter < Minitest::Test
     booking = result.first
     line = booking.line(type: :gross)
 
-    assert_equal     0, line.sending_account
-    assert_equal 10600, line.receiving_account
-    assert_equal "12", result.first.booking_lines.first.gross_amount
+    # TODO invert!
+    assert_equal 10600, line.sending_account
+    assert_equal     0, line.receiving_account
+    assert_equal  "12", result.first.booking_lines.first.gross_amount
+  end
+
+  def test_it_gets_the_tax_accounts_right_eu_case
+    invoice = Shoplex::ShopwareInvoice.new(invoice_amount: '12', tax07_amount: '7.77', tax19_amount: '19.19', lastname: 'Gerdz')
+    result = Shoplex::InvoiceBookingConverter.convert(invoices: [invoice])
+    booking = result.first
+    line = booking.line(type: :tax07)
+
+    assert_equal      0, line.sending_account
+    assert_equal   8300, line.receiving_account
+    assert_equal "7.77", line.gross_amount
+  end
+
+  def test_it_gets_the_tax_accounts_right_non_eu_case
+    invoice = Shoplex::ShopwareInvoice.new(invoice_amount: '1',
+                                           tax07_amount: '7.77', tax19_amount: '19.19', lastname: 'Gerdz')
+    result = Shoplex::InvoiceBookingConverter.convert(invoices: [invoice])
+    booking = result.first
+    line = booking.line(type: :tax07)
+
+    assert_equal      0, line.sending_account
+    assert_equal   8310, line.receiving_account
+    assert_equal "7.77", line.gross_amount
   end
 end
 

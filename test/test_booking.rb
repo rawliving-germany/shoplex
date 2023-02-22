@@ -31,7 +31,7 @@ class TestBooking < Minitest::Test
     # assert false
   end
 
-  def test_it_raises_on_multiple_lines_of_type
+  def test_it_returns_nil_for_nonexistent_types
     booking = Shoplex::Booking.new(date: nil)
     booking.booking_lines << Shoplex::BookingLine.new(
       type: Shoplex::BookingLine::Types::GROSS)

@@ -27,7 +27,7 @@ class TestInvoiceBookingConverter < Minitest::Test
     assert_equal "12", result.first.booking_lines.first.gross_amount
   end
 
-  def test_it_gets_some_data_right
+  def test_it_gets_booking_line_types_right
     invoice = Shoplex::ShopwareInvoice.new(invoice_amount: '12', order_time: DateTime.new(2022,2,2,22,22,22))
     result = Shoplex::InvoiceBookingConverter.convert(invoices: [invoice])
 

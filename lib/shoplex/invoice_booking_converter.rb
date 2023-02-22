@@ -14,7 +14,7 @@ module Shoplex
 
     def self.add_gross_booking_line(invoice:, booking:)
       booking.add_line Shoplex::BookingLine.new(sending_account: 0,
-                                                receiving_account: 0,
+                                                receiving_account: Shoplex::AccountNumber::sending_gross(lastname: invoice.lastname),
                                                 gross_amount: invoice.invoice_amount,
                                                 reference: '',
                                                 type: BookingLine::Types::GROSS)

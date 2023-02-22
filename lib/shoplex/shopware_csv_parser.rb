@@ -31,7 +31,8 @@ module Shoplex
       ShopwareInvoice.new(invoice_number: row["invoiceNumber"],
                           order_number:   row['orderNumber'],
                           order_time:     row['orderTime'],
-                          invoice_amount: row['invoiceAmount'])
+                          invoice_amount: row['invoiceAmount'],
+                          lastname:       row['billingLastName'],)
     end
   end
 end

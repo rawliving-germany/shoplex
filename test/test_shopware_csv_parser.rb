@@ -35,12 +35,13 @@ class TestShopwareCSVParser < Minitest::Test
   end
 
   # lets go in packs of three, can merge the examples later
-  def test_it_sets_amount
+  def test_it_sets_amount_and_lastname
     shopware_csv_file = File.read('test/files/two_lines_one_invoice_shopware.csv', encoding: Encoding::ISO_8859_1)
     result = Shoplex::ShopwareCSVParser.parse shopware_csv_file
     invoice = result.invoices.first
 
     assert_equal "59,39", invoice.invoice_amount
+    assert_equal "LastNameOfBill", invoice.lastname
   end
 end
 

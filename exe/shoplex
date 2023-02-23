@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'shoplex'
+
+puts Shoplex::process ARGF.read
+
+exit 0

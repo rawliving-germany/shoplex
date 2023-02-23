@@ -85,5 +85,15 @@ class TestInvoiceBookingConverter < Minitest::Test
     assert_equal "7.77", booking.line(type: :tax07).gross_amount
     assert_equal "19.19", booking.line(type: :tax19).gross_amount
   end
+
+  def test_it_sets_the_correct_reference
+    invoice = Shoplex::ShopwareInvoice.new(invoice_amount: '1',
+                                           invoice_number: 'invoice-1-number',
+                                           order_number: 'order-1-number',
+                                           firstname: 'FIRST', lastname: 'LAST')
+
+    booking = Shoplex::InvoiceBookingConverter.convert(invoice:)
+    assert_equal 'invoice-1-number order-1-number FIRST LAST', booking.booking_lines.first.reference
+  end
 end
 

@@ -15,11 +15,15 @@ module Shoplex
       booking
     end
 
+    def self.create_reference invoice:
+      "#{invoice.invoice_number} #{invoice.order_number} #{invoice.firstname} #{invoice.lastname}"
+    end
+
     def self.add_gross_booking_line(invoice:, booking:)
       booking.add_line Shoplex::BookingLine.new(sending_account: Shoplex::AccountNumber::sending_gross(lastname: invoice.lastname),
                                                 receiving_account: 0,
                                                 gross_amount: invoice.invoice_amount,
-                                                reference: '',
+                                                reference: create_reference(invoice:),
                                                 type: BookingLine::Types::GROSS)
     end
 
@@ -30,7 +34,7 @@ module Shoplex
         sending_account: 0,
         receiving_account: account_number_method.(eu: invoice.eu?),
         gross_amount: invoice.send(invoice_amount_accessor),
-        reference: '',
+        reference: create_reference(invoice:),
         type:)
       booking.add_line line
     end

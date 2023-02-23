@@ -1,7 +1,7 @@
 module Shoplex
   class InvoiceBookingConverter
     def self.convert(invoice:)
-      booking = Booking.new(date: invoice.order_time)
+      booking = Booking.new(date: invoice.order_time, reference: invoice.invoice_number)
 
       add_gross_booking_line(invoice:, booking:)
       [

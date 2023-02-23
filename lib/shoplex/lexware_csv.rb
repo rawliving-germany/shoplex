@@ -5,10 +5,10 @@ module Shoplex
         bookings.each do |booking|
           booking.booking_lines.each do |line|
             csv << [
-              booking.date,
-              #line.invoice_number,
+              booking.date.strftime("%d.%m.%Y"),
+              booking.reference,
               line.reference,
-              line.gross_amount,
+              "%.2f" % line.gross_amount.to_f,
               line.sending_account,
               line.receiving_account,
               'EUR'

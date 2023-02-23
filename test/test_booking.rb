@@ -4,7 +4,7 @@ require "test_helper"
 
 class TestBooking < Minitest::Test
   def test_it_can_access_booking_lines_by_type
-    booking = Shoplex::Booking.new(date: nil)
+    booking = Shoplex::Booking.new(date: nil, reference: nil)
     booking.booking_lines << Shoplex::BookingLine.new(
       type: Shoplex::BookingLine::Types::GROSS)
     booking.booking_lines << Shoplex::BookingLine.new(
@@ -32,7 +32,7 @@ class TestBooking < Minitest::Test
   end
 
   def test_it_returns_nil_for_nonexistent_types
-    booking = Shoplex::Booking.new(date: nil)
+    booking = Shoplex::Booking.new(date: nil, reference: nil)
     booking.booking_lines << Shoplex::BookingLine.new(
       type: Shoplex::BookingLine::Types::GROSS)
 

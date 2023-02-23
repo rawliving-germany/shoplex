@@ -4,7 +4,7 @@ require "test_helper"
 
 class TestLexwareCSV < Minitest::Test
   def test_it_includes_all_lines
-    booking = Shoplex::Booking.new(date: Date.new(2022,2,22))
+    booking = Shoplex::Booking.new(date: Date.new(2022,2,22), reference: 'r')
     booking.add_line Shoplex::BookingLine.new(sending_account: 1, receiving_account: 2, type: :gross)
     booking.add_line Shoplex::BookingLine.new(sending_account: 3, receiving_account: 4, type: :tax00)
     booking.add_line Shoplex::BookingLine.new(sending_account: 5, receiving_account: 6, type: :tax19)
@@ -13,9 +13,9 @@ class TestLexwareCSV < Minitest::Test
   end
 
   def test_generates_right_output
-    booking = Shoplex::Booking.new(date: Date.new(2022,2,22))
-    booking.add_line Shoplex::BookingLine.new(sending_account: 1, receiving_account: 2, reference: 'r', type: :gross)
+    booking = Shoplex::Booking.new(date: Date.new(2022,2,22), reference: 'rb')
+    booking.add_line Shoplex::BookingLine.new(sending_account: 1, gross_amount: 3.2, receiving_account: 2, reference: 'rl', type: :gross)
     csv = Shoplex::LexwareCSV.create_from(bookings: [booking])
-    assert_equal '22.2.2022,', csv
+    assert_equal "22.02.2022,rb,rl,3.20,1,2,EUR\n", csv
   end
 end

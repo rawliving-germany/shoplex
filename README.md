@@ -69,8 +69,17 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/raw-li
 
 ### License
 
-AGPLv3+, Copyright 2023 Felix wolfsteller
+The included [pico css](https://github.com/picocss/pico) file is [MIT](https://github.com/picocss/pico/blob/08da409d0758dd1807783a938e4e202445f30033/LICENSE.md)
+licensed.
+Rest is [AGPLv3+](LICENSE), Copyright 2023 Felix wolfsteller.
 
 ## Code of Conduct
 
 Everyone interacting in the Shoplex project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/raw-living-germany/shoplex/blob/master/CODE_OF_CONDUCT.md).
+
+# Web-UI for Shoplex
+
+(single file sinatra app)
+
+## Start and usage instructions
+tbd.

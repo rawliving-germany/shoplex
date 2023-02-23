@@ -7,8 +7,14 @@ source "https://rubygems.org"
 # Specify your gem's dependencies in shoplex.gemspec
 gemspec
 
+# Test and Gem maintenance
+
 gem "rake", "~> 13.0"
-
 gem "minitest", "~> 5.0"
-
 gem "minitest-reporters", "~> 1.6"
+
+# Webui
+
+gem "sinatra", "~> 3.0"
+gem "haml", "~> 6.1"
+gem "puma", "~> 6.1"

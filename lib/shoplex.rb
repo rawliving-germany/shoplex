@@ -13,7 +13,9 @@ module Shoplex
 
   def self.process file_content
     shopware_invoices = Shoplex::ShopwareCSVParser.parse(file_content).invoices
-    bookings = Shoplex::InvoiceBookingConverter.convert(invoices: shopware_invoices)
+    shopware_invoices.each do |invoice|
+      bookings = Shoplex::InvoiceBookingConverter.convert(invoice:)
+    end
     return "\n"
   end
 end

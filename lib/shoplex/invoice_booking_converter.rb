@@ -1,20 +1,18 @@
 module Shoplex
   class InvoiceBookingConverter
-    def self.convert(invoices:)
-      [*invoices].map do |invoice|
-        booking = Booking.new(date: invoice.order_time)
+    def self.convert(invoice:)
+      booking = Booking.new(date: invoice.order_time)
 
-        add_gross_booking_line(invoice:, booking:)
-        [
-          [:tax00, AccountNumber::method(:receiving_tax00), :tax00_amount],
-          [:tax07, AccountNumber::method(:receiving_tax07), :tax07_amount],
-          [:tax19, AccountNumber::method(:receiving_tax19), :tax19_amount],
-        ].each do |type, account_number_method, invoice_amount_accessor|
-          add_tax_booking_line(invoice:, booking:, type:, account_number_method:, invoice_amount_accessor:)
-        end
-
-        booking
+      add_gross_booking_line(invoice:, booking:)
+      [
+        [:tax00, AccountNumber::method(:receiving_tax00), :tax00_amount],
+        [:tax07, AccountNumber::method(:receiving_tax07), :tax07_amount],
+        [:tax19, AccountNumber::method(:receiving_tax19), :tax19_amount],
+      ].each do |type, account_number_method, invoice_amount_accessor|
+        add_tax_booking_line(invoice:, booking:, type:, account_number_method:, invoice_amount_accessor:)
       end
+
+      booking
     end
 
     def self.add_gross_booking_line(invoice:, booking:)

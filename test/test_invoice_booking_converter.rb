@@ -10,7 +10,10 @@ class TestInvoiceBookingConverter < Minitest::Test
   end
 
   def test_it_creates_3_lines_from_double_taxed_invoice
-    invoice = Shoplex::ShopwareInvoice.new(lastname: 'Bok')
+    invoice = Shoplex::ShopwareInvoice.new(lastname: 'Bok',
+                                          invoice_amount: '100',
+                                          tax07_amount: '7',
+                                          tax19_amount: '19')
     result = Shoplex::InvoiceBookingConverter.convert(invoices: [invoice])
     assert_equal 3, result.first.booking_lines.count
   end

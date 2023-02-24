@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+require 'sinatra'
+require 'haml'
+
+set :root,          File.dirname(__FILE__)
+set :public_folder, Proc.new { File.join(root, "..", "webui") }
+set :static,        true
+
+get '/' do
+  content_type "text/html"
+  haml :index, :format => :html5
+end
+
+# Sinatra & Ruby Magic
+__END__
+
+@@layout
+!!! 5
+%html
+  %head
+    %meta{:charset => "utf-8"}
+    %title Shoplex WEB
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
+    %link{:rel => "stylesheet", :href => "/assets/pico.min.css"}
+  %body
+    %main.container
+      != yield
+
+@@index
+%h1 H eins
+Textarea or file upload
+%form
+  %input
+%article
+  %header
+    wow
+  moo
+  %footer
+    wie

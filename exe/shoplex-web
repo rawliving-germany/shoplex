@@ -3,13 +3,30 @@
 require 'sinatra'
 require 'haml'
 
+require 'shoplex'
+
 set :root,          File.dirname(__FILE__)
 set :public_folder, Proc.new { File.join(root, "..", "webui") }
 set :static,        true
 
 get '/' do
   content_type "text/html"
-  haml :index, :format => :html5
+  @open_file_upload_dialog = true
+  haml :index
+end
+
+post '/' do
+  unless params[:file] &&
+         (tmpfile = params[:file][:tempfile]) &&
+         (name = params[:file][:filename])
+    @open_file_upload_dialog = true
+    @error = "No file selected"
+    return haml(:index)
+  end
+  @open_file_upload_dialog = false
+  @error = tmpfile.read.lines.count
+  @result = Shoplex::process tmpfile.read
+  haml :index
 end
 
 # Sinatra & Ruby Magic
@@ -28,13 +45,18 @@ __END__
       != yield
 
 @@index
-%h1 H eins
-Textarea or file upload
-%form
-  %input
-%article
-  %header
-    wow
-  moo
-  %footer
-    wie
+%h1 Shoplex
+%em(style="color: red")=@error
+%details(open=@open_file_upload_dialog)
+  %summary File Upload
+  %form{action: "/", method: "post", enctype: "multipart/form-data"}
+    %input{type: "file", name: "file"}
+    %input{type: "submit", value: "Upload"}
+%details
+  %summary Text Upload
+  %form{action: "/", method: "post", enctype: "multipart/form-data"}
+    %input{type: "textarea", name: "textarea"}
+    %input{type: "submit", value: "Upload"}
+%hr
+%h2 Result
+= @result

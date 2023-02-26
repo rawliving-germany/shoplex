@@ -83,8 +83,12 @@ Everyone interacting in the Shoplex project's codebases, issue trackers, chat ro
 
 ## Start and usage instructions
 
-`exe/shoplex-web`
+`bundle exec exe/shoplex-web`
 
 ### Development
 
-run `rerun exe/shoplex-web` in dev.
+Execute
+
+  bundle exec rerun --pattern "**/*" --ignore="test/*" exe/shoplex-web
+
+for automatic server reloads in development.

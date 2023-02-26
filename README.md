@@ -82,4 +82,9 @@ Everyone interacting in the Shoplex project's codebases, issue trackers, chat ro
 (single file sinatra app)
 
 ## Start and usage instructions
-tbd.
+
+`exe/shoplex-web`
+
+### Development
+
+run `rerun exe/shoplex-web` in dev.

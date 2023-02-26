@@ -18,8 +18,6 @@ module Shoplex
       Shoplex::InvoiceBookingConverter.convert(invoice:)
     end
 
-    Shoplex::LexwareCSV.create_from(bookings:)
-
-    return "\n"
+    return Shoplex::LexwareCSV.create_from(bookings:)
   end
 end

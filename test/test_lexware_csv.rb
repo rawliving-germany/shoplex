@@ -16,6 +16,6 @@ class TestLexwareCSV < Minitest::Test
     booking = Shoplex::Booking.new(date: Date.new(2022,2,22), reference: 'rb')
     booking.add_line Shoplex::BookingLine.new(sending_account: 1, gross_amount: 3.2, receiving_account: 2, reference: 'rl', type: :gross)
     csv = Shoplex::LexwareCSV.create_from(bookings: [booking])
-    assert_equal "22.02.2022,rb,rl,3.20,1,2,EUR\n", csv
+    assert_equal "22.02.2022,rb,rl,3.20,1,2,EUR", csv.strip
   end
 end

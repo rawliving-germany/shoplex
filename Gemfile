@@ -18,3 +18,9 @@ gem "minitest-reporters", "~> 1.6"
 gem "sinatra", "~> 3.0"
 gem "haml", "~> 6.1"
 gem "puma", "~> 6.1"
+
+gem "rerun", "~> 0.14.0"
+
+gem "guard", "~> 2.18"
+
+gem "guard-minitest", "~> 2.4"

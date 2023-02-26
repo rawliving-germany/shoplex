@@ -15,7 +15,8 @@ module Shoplex
     def self.parse csv_file_content
       result = Result.new
 
-      CSV.parse(csv_file_content, headers: true, col_sep: ';', converters: :date_time) do |row|
+      CSV.parse(csv_file_content, headers: true, col_sep: ';', converters:
+                :date_time, encoding: Encoding::ISO_8859_1) do |row|
         if row['invoiceNumber']
           result.valid_invoices += 1
           result.invoices << create_invoice_from(row: row)
@@ -31,6 +32,9 @@ module Shoplex
       ShopwareInvoice.new(invoice_number: row["invoiceNumber"],
                           order_number:   row['orderNumber'],
                           order_time:     row['orderTime'],
+                          tax00_amount:   row['taxRateSums_0'],
+                          tax07_amount:   row['taxRateSums_7'],
+                          tax19_amount:   row['taxRateSums_19'],
                           invoice_amount: row['invoiceAmount'],
                           lastname:       row['billingLastName'],)
     end

@@ -50,7 +50,10 @@ class TestInvoiceBookingConverter < Minitest::Test
   end
 
   def test_it_gets_the_tax_accounts_right_eu_case
-    invoice = Shoplex::ShopwareInvoice.new(invoice_amount: '12', tax07_amount: '7.77', tax19_amount: '19.19', lastname: 'Gerdz')
+    invoice = Shoplex::ShopwareInvoice.new(invoice_amount: '12',
+                                           tax07_amount: '7.77', tax19_amount: '19.19',
+                                           lastname: 'Gerdz',
+                                           country: 'Deutschland')
     booking = Shoplex::InvoiceBookingConverter.convert(invoice:)
     line = booking.line(type: :tax07)
 
@@ -69,7 +72,7 @@ class TestInvoiceBookingConverter < Minitest::Test
     line = booking.line(type: :tax07)
 
     assert_equal      0, line.sending_account
-    #assert_equal   8310, line.receiving_account
+    assert_equal   8310, line.receiving_account
     assert_equal "7.77", line.gross_amount
   end
 

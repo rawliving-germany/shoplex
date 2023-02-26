@@ -32,7 +32,7 @@ module Shoplex
 
       line = Shoplex::BookingLine.new(
         sending_account: 0,
-        receiving_account: account_number_method.(eu: invoice.eu?),
+        receiving_account: account_number_method.(german: invoice.german?),
         gross_amount: invoice.send(invoice_amount_accessor),
         reference: create_reference(invoice:),
         type:)

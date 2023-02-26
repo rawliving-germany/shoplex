@@ -9,9 +9,12 @@ module Shoplex
                                :tax07_amount,
                                :tax19_amount,
                                keyword_init: true) do
-    def eu?
-      #country == "Deutschland"
-      true
+    def german?
+      country == "Deutschland"
+    end
+
+    def swiss?
+      county == "Schweiz"
     end
   end
 end

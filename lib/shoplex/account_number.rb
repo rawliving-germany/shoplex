@@ -12,15 +12,18 @@ class Shoplex::AccountNumber
     10_000 + ordinal * 100
   end
 
-  def self.receiving_tax00(eu:)
+
+  # 8120 is e.g. Swiss and taxfree - book manually
+  # 8125 would be EU with tax-ID-Nr. §4 - book manually
+  def self.receiving_tax00(german:)
     8120
   end
 
-  def self.receiving_tax07(eu:)
-    eu ? 8300 : 8310
+  def self.receiving_tax07(german:)
+    german ? 8300 : 8310
   end
 
-  def self.receiving_tax19(eu:)
-    eu ? 8400 : 8315
+  def self.receiving_tax19(german:)
+    german ? 8400 : 8315
   end
 end

@@ -24,8 +24,8 @@ post '/' do
     return haml(:index)
   end
   @open_file_upload_dialog = false
-  @error = tmpfile.read.lines.count
-  @result = Shoplex::process tmpfile.read
+  tmpfile_content = tmpfile.read
+  @result = Shoplex::process tmpfile_content
   haml :index
 end
 
@@ -34,12 +34,34 @@ __END__
 
 @@layout
 !!! 5
-%html
+%html{:"data-theme" => "dark"}
   %head
     %meta{:charset => "utf-8"}
     %title Shoplex WEB
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
+    :css
+      :root {
+        --primary: #8e24aa;
+      }
     %link{:rel => "stylesheet", :href => "/assets/pico.min.css"}
+    :css
+      /* Purple Dark scheme (Forced) */
+      [data-theme="dark"] {
+        --primary: #8e24aa;
+        --primary-hover: #9c27b0;
+        --primary-focus: rgba(142, 36, 170, 0.25);
+        --primary-inverse: #FFF;
+      }
+      /* Purple (Common styles) */
+      :root {
+        --form-element-active-border-color: var(--primary);
+        --form-element-focus-color: var(--primary-focus);
+        --switch-color: var(--primary-inverse);
+        --switch-checked-background-color: var(--primary);
+      }
+      h1 {
+        --typography-spacing-vertical: 1rem;
+      }
   %body
     %main.container
       != yield
@@ -50,13 +72,22 @@ __END__
 %details(open=@open_file_upload_dialog)
   %summary File Upload
   %form{action: "/", method: "post", enctype: "multipart/form-data"}
-    %input{type: "file", name: "file"}
-    %input{type: "submit", value: "Upload"}
+    .grid
+      %div
+        %input{type: "file", name: "file"}
+      %div
+        %input{type: "submit", value: "Upload"}
 %details
   %summary Text Upload
   %form{action: "/", method: "post", enctype: "multipart/form-data"}
-    %input{type: "textarea", name: "textarea"}
+    %textarea{name: 'textarea'}
     %input{type: "submit", value: "Upload"}
 %hr
-%h2 Result
-= @result
+- if @result
+  %h2 Result
+  %h3 Errors and invoices to look out for
+  %div(style="color: red")
+    abcd
+  %h3 Lexware file
+  %pre
+    = @result

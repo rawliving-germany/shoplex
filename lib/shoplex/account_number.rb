@@ -1,10 +1,10 @@
 class Shoplex::AccountNumber
   def self.sending_gross(lastname:)
-    char = lastname.strip.upcase.chars.first
+    char = lastname.strip.upcase[/[a-zA-ZÖÄÜ]/].chars.first
     char.gsub!(/[ÖÜÄ]/, 'Ä' => 'A', 'Ö' => 'O', 'Ü' => 'U')
 
     if char !~ /[A-Z]/
-      raise ArgumentError, "Don't know account number for #{lastname} (does not start with A-Z)"
+      raise ArgumentError, "Don't know account number for #{lastname} (does not start with a 'good' letter A-Z)"
     end
 
     ordinal = char.ord - "A".ord

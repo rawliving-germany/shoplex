@@ -25,7 +25,12 @@ class TestAccountNumber < Minitest::Test
 
   def test_that_it_raises_on_weird_chars
     assert_raises do
-      Shoplex::AccountNumber::sending_gross(lastname: 'Úmasch')
+      Shoplex::AccountNumber::sending_gross(lastname: 'Ú')
     end
+  end
+
+  def test_that_it_looks_for_first_ascii_char
+    assert_equal Shoplex::AccountNumber::sending_gross(lastname: 'Matz'),
+                 Shoplex::AccountNumber::sending_gross(lastname: ' & Matz')
   end
 end

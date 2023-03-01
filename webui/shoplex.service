@@ -1,0 +1,13 @@
+[Unit]
+Description=Shoplex
+
+[Service]
+User=rawbotz
+WorkingDirectory=/home/rawbotz/shoplex
+ExecStart=/home/rawbotz/.rvm/wrappers/ruby-3.2.1/bundle exec rackup --host 127.0.0.1 --port 9400
+Restart=always
+
+
+[Install]
+WantedBy=multi-user.target
+

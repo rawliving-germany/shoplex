@@ -16,6 +16,8 @@ Install it yourself as:
 
     $ gem install shoplex
 
+Instructions to run the web-ui are below.
+
 ## Assumptions
 
 Customer accounts are hard coded.
@@ -92,3 +94,5 @@ Execute
   bundle exec rerun --pattern "**/*" --ignore="test/*" exe/shoplex-web
 
 for automatic server reloads in development.
+
+## Deployment

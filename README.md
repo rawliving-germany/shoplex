@@ -91,8 +91,14 @@ Everyone interacting in the Shoplex project's codebases, issue trackers, chat ro
 
 Execute
 
-  bundle exec rerun --pattern "**/*" --ignore="test/*" exe/shoplex-web
+```bash
+bundle exec rerun --pattern "**/*" --ignore="test/*" exe/shoplex-web
+```
 
 for automatic server reloads in development.
 
 ## Deployment
+
+As a service you can take the template in [webui/shoplex.service], link it (e.g.
+`ln -s /home/rawbotz/shoplex/webui/shoplex.service  /etc/systemd/system/shoplex.service`) and
+start it (`service shoplex restart`)

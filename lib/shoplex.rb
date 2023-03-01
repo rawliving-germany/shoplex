@@ -15,8 +15,12 @@ module Shoplex
   def self.process file_content
     shopware_invoices = Shoplex::ShopwareCSVParser.parse(file_content).invoices
     bookings = shopware_invoices.map do |invoice|
-      Shoplex::InvoiceBookingConverter.convert(invoice:)
-    end
+      begin
+        Shoplex::InvoiceBookingConverter.convert(invoice:)
+      rescue => e
+        STDERR.puts e
+      end
+    end.compact
 
     return Shoplex::LexwareCSV.create_from(bookings:)
   end

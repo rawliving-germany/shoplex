@@ -18,8 +18,12 @@ module Shoplex
       CSV.parse(csv_file_content, headers: true, col_sep: ';', converters:
                 :date_time, encoding: Encoding::ISO_8859_1) do |row|
         if row['invoiceNumber']
-          result.valid_invoices += 1
-          result.invoices << create_invoice_from(row: row)
+          begin
+            result.invoices << create_invoice_from(row: row)
+            result.valid_invoices += 1
+          rescue => e
+            STDERR.puts e
+          end
         else
           result.invalid_invoices += 1
         end

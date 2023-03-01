@@ -22,4 +22,9 @@ class TestShoplex < Minitest::Test
     assert_equal expected.strip,
       result_file_content.strip
   end
+
+  def test_it_catches_errors_and_add_them_to_result
+    # Converter errors
+    # assert false
+  end
 end

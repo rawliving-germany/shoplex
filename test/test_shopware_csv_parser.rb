@@ -43,5 +43,9 @@ class TestShopwareCSVParser < Minitest::Test
     assert_equal "59,39", invoice.invoice_amount
     assert_equal "LastNameOfBill", invoice.lastname
   end
+
+  def test_it_catches_errors_and_add_them_to_result
+    # assert false
+  end
 end
 

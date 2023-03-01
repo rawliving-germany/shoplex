@@ -40,6 +40,7 @@ module Shoplex
                           tax07_amount:   row['taxRateSums_7'],
                           tax19_amount:   row['taxRateSums_19'],
                           invoice_amount: row['invoiceAmount'],
+                          shipping_gross: row['invoiceShipping'],
                           lastname:       row['billingLastName'],)
     end
   end

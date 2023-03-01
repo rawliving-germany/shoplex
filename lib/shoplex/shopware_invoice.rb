@@ -8,6 +8,7 @@ module Shoplex
                                :tax00_amount,
                                :tax07_amount,
                                :tax19_amount,
+                               :shipping_gross,
                                keyword_init: true) do
     def german?
       country == "Deutschland"

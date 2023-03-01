@@ -1,6 +1,6 @@
 class Shoplex::AccountNumber
   def self.sending_gross(lastname:)
-    char = lastname.strip.upcase[/[a-zA-ZÖÄÜ]/].chars.first
+    char = lastname.encode(Encoding::UTF_8).strip.upcase[/[a-zA-ZÖÄÜ]/].chars.first
     char.gsub!(/[ÖÜÄ]/, 'Ä' => 'A', 'Ö' => 'O', 'Ü' => 'U')
 
     if char !~ /[A-Z]/

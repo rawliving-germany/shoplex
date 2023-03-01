@@ -9,6 +9,11 @@ class TestAccountNumber < Minitest::Test
     assert_equal 12100, Shoplex::AccountNumber::sending_gross(lastname: 'Verhoyn')
   end
 
+  def test_that_it_reencodes
+    account_number = -> (name) {Shoplex::AccountNumber.sending_gross(lastname: name)}
+    assert_equal account_number["Üma".encode(Encoding::ISO_8859_1)], account_number['Ümat']
+  end
+
   def test_that_it_ignores_casing
     account_number = -> (name) {Shoplex::AccountNumber.sending_gross(lastname: name)}
     assert_equal account_number['Chris'], account_number['chris']

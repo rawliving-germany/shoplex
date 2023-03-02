@@ -80,7 +80,7 @@ __END__
 %details
   %summary Text Upload
   %form{action: "/", method: "post", enctype: "multipart/form-data"}
-    %textarea{name: 'textarea', placeholder="copy your text here"}
+    %textarea{name: 'textarea', placeholder: "copy your text here"}
     %input{type: "submit", value: "Upload"}
 %hr
 - if @result

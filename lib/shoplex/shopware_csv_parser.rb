@@ -19,7 +19,8 @@ module Shoplex
                 :date_time, encoding: Encoding::ISO_8859_1) do |row|
         if row['invoiceNumber']
           begin
-            result.invoices << create_invoice_from(row: row)
+            convert_tax_numbers!(row:)
+            result.invoices << create_invoice_from(row:)
             result.valid_invoices += 1
           rescue => e
             STDERR.puts e
@@ -30,6 +31,11 @@ module Shoplex
       end
 
       return result
+    end
+
+    def self.convert_tax_numbers!(row:)
+      row["taxRateSums_7"] = row["taxRateSums_7"].to_f
+      row["taxRateSums_19"] = row["taxRateSums_19"].to_f
     end
 
     def self.create_invoice_from(row:)

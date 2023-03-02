@@ -34,8 +34,9 @@ module Shoplex
     end
 
     def self.convert_tax_numbers!(row:)
-      row["taxRateSums_7"] = row["taxRateSums_7"].to_f
-      row["taxRateSums_19"] = row["taxRateSums_19"].to_f
+      row["taxRateSums_7"]   = row["taxRateSums_7"].to_f
+      row["taxRateSums_19"]  = row["taxRateSums_19"].to_f
+      row["invoiceShipping"] = row["invoiceShipping"].to_f
     end
 
     def self.create_invoice_from(row:)

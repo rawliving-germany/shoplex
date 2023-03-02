@@ -17,6 +17,7 @@ module Shoplex
     shopware_invoices = Shoplex::ShopwareCSVParser.parse(file_content).invoices
     bookings = shopware_invoices.map do |invoice|
       begin
+        Shoplex::ShippingSplitter::apply!(invoice:)
         Shoplex::InvoiceBookingConverter.convert(invoice:)
       rescue => e
         STDERR.puts e

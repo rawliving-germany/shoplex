@@ -52,6 +52,7 @@ class TestShopwareCSVParser < Minitest::Test
     result = Shoplex::ShopwareCSVParser.parse input
     assert_equal Float, result.invoices.first.tax07_amount.class
     assert_equal Float, result.invoices.first.tax19_amount.class
+    assert_equal Float, result.invoices.first.shipping_gross.class
     assert_equal 2.04, result.invoices.first.tax07_amount
     assert_equal 3.72, result.invoices.first.tax19_amount
   end

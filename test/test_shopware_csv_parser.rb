@@ -57,6 +57,15 @@ class TestShopwareCSVParser < Minitest::Test
     assert_equal 3.72, result.invoices.first.tax19_amount
   end
 
+  def test_it_sets_country_correctly
+    shopware_csv_file = File.read('test/files/two_lines_one_invoice_shopware.csv', encoding: Encoding::ISO_8859_1)
+    result = Shoplex::ShopwareCSVParser.parse shopware_csv_file
+    invoice = result.invoices.first
+
+    assert_equal "Deutschland", invoice.country
+    assert invoice.german?
+  end
+
   def test_it_catches_errors_and_add_them_to_result
     # assert false
   end

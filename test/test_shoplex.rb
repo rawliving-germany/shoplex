@@ -16,8 +16,8 @@ class TestShoplex < Minitest::Test
     result_file_content = Shoplex::process(File.read('test/files/two_lines_one_invoice_shopware.csv', encoding: Encoding::ISO_8859_1))
     expected = <<~CSV
      26.10.2022,6010,6010 90067  LastNameOfBill,59.39,11100,0,EUR
-     26.10.2022,6010,6010 90067  LastNameOfBill,2.23,0,8310,EUR
-     26.10.2022,6010,6010 90067  LastNameOfBill,4.04,0,8315,EUR
+     26.10.2022,6010,6010 90067  LastNameOfBill,2.23,0,8300,EUR
+     26.10.2022,6010,6010 90067  LastNameOfBill,4.04,0,8400,EUR
     CSV
     assert_equal expected.strip,
       result_file_content.strip

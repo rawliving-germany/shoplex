@@ -51,6 +51,7 @@ module Shoplex
                           invoice_amount: row['invoiceAmount'],
                           shipping_gross: row['invoiceShipping'],
                           shipping_net:   row['invoiceShippingNet'],
+                          country:        row['billingCountry'],
                           lastname:       row['billingLastName'],)
     end
   end

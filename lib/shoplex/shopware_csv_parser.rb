@@ -36,7 +36,9 @@ module Shoplex
     def self.convert_tax_numbers!(row:)
       row["taxRateSums_7"]   = row["taxRateSums_7"].to_f
       row["taxRateSums_19"]  = row["taxRateSums_19"].to_f
-      row["invoiceShipping"] = row["invoiceShipping"].to_f
+      row["invoiceShipping"]    = row["invoiceShipping"].to_s.gsub(",",".").to_f
+      row["invoiceShippingNet"] = row["invoiceShippingNet"].to_s.gsub(",",".").to_f
+      row["invoiceAmount"]      = row["invoiceAmount"].to_s.gsub(",",".").to_f
     end
 
     def self.create_invoice_from(row:)
@@ -48,6 +50,7 @@ module Shoplex
                           tax19_amount:   row['taxRateSums_19'],
                           invoice_amount: row['invoiceAmount'],
                           shipping_gross: row['invoiceShipping'],
+                          shipping_net:   row['invoiceShippingNet'],
                           lastname:       row['billingLastName'],)
     end
   end

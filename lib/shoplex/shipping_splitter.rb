@@ -1,28 +1,22 @@
 module Shoplex
   class ShippingSplitter
     def self.apply!(invoice:)
-      cost_without_shipping = invoice.invoice_amount - invoice.shipping_gross.to_f
+      return if invoice.shipping_net.to_i == 0 || invoice.shipping_gross.to_i == 0
 
-      gross19 = invoice.tax19_amount.to_f / 0.19
-      gross07 = invoice.tax07_amount.to_f / 0.07
-      gross19 = gross19.round(2)
-      gross07 = gross07.round(2)
+      #https://www.wolframalpha.com/input?i=solve+a+%2B+b+%3D+1+AND+g+-+n+%3D+0.07+*+a+*+n+%2B+0.19+*+b+*+n+for+a
 
-      # div/0
-      ratio19 = case
-                when gross07 == 0
-                  1
-                when gross19 == 0
-                  0
-                else
-                  (gross19 / gross07 ) * gross19 / (gross19 + gross07)
-                end
 
-      shipping_cost_19part = invoice.shipping_gross * ratio19
-      shipping_cost_07part = invoice.shipping_gross - shipping_cost_19part
-      
+      ratio_07 = (119 / 12.0) - (25 * invoice.shipping_gross) / (3 * invoice.shipping_net)
+      ratio_19 = 1.0 - ratio_07
+
+      shipping_cost_19part = invoice.shipping_net * ratio_19
+      shipping_cost_07part = invoice.shipping_net * ratio_07
+
       invoice.tax19_amount = invoice.tax19_amount.to_f + shipping_cost_19part * 0.19
       invoice.tax07_amount = invoice.tax07_amount.to_f + shipping_cost_07part * 0.07
+
+      invoice.tax19_amount = invoice.tax19_amount.round(2)
+      invoice.tax07_amount = invoice.tax07_amount.round(2)
     end
   end
 end

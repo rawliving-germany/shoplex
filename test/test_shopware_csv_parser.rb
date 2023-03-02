@@ -40,7 +40,7 @@ class TestShopwareCSVParser < Minitest::Test
     result = Shoplex::ShopwareCSVParser.parse shopware_csv_file
     invoice = result.invoices.first
 
-    assert_equal "59,39", invoice.invoice_amount
+    assert_equal 59.39, invoice.invoice_amount
     assert_equal "LastNameOfBill", invoice.lastname
   end
 

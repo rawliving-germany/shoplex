@@ -10,6 +10,7 @@ class TestShippingSlitter < Minitest::Test
 
     Shoplex::ShippingSplitter.apply!(invoice:)
 
+    assert_equal 0.0      , invoice.tax07_amount
     assert_equal 1.9 + 1.9, invoice.tax19_amount
   end
   def test_easy_07_case
@@ -21,6 +22,18 @@ class TestShippingSlitter < Minitest::Test
     Shoplex::ShippingSplitter.apply!(invoice:)
 
     assert_equal 0.7 + 0.7, invoice.tax07_amount
+    assert_equal 0.0      , invoice.tax19_amount
+  end
+  def test_5050_case
+    invoice = Shoplex::ShopwareInvoice.new(invoice_amount: 40,
+                                           shipping_gross: 20,
+                                           tax07_amount:  0.7,
+                                           tax19_amount:  1.9)
+
+    Shoplex::ShippingSplitter.apply!(invoice:)
+
+    assert_equal 0.7 + 0.7, invoice.tax07_amount
+    assert_equal 1.9 + 1.9, invoice.tax19_amount
   end
 end
 

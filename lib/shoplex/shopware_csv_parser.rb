@@ -10,13 +10,13 @@ module Shoplex
         if row['invoiceNumber']
           begin
             convert_tax_numbers!(row:)
+            convert_shipping_and_amount__numbers!(row:)
             result.invoices << create_invoice_from(row:)
-            result.valid_invoices += 1
           rescue => e
-            STDERR.puts e
+            result.mark_error(maker: self, error: :creation_failed, obj: [e, row])
           end
         else
-          result.invalid_invoices += 1
+          result.mark_error(maker: self, error: :no_invoice_number, obj: row)
         end
       end
 
@@ -26,6 +26,9 @@ module Shoplex
     def self.convert_tax_numbers!(row:)
       row["taxRateSums_7"]   = row["taxRateSums_7"].to_f
       row["taxRateSums_19"]  = row["taxRateSums_19"].to_f
+    end
+
+    def self.convert_shipping_and_amount__numbers!(row:)
       row["invoiceShipping"]    = row["invoiceShipping"].to_s.gsub(",",".").to_f
       row["invoiceShippingNet"] = row["invoiceShippingNet"].to_s.gsub(",",".").to_f
       row["invoiceAmount"]      = row["invoiceAmount"].to_s.gsub(",",".").to_f

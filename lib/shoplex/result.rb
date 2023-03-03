@@ -1,11 +1,18 @@
 module Shoplex
   class Result
-    attr_accessor :valid_invoices, :invalid_invoices
     attr_accessor :invoices
+    attr_accessor :errors
 
     def initialize
-      @valid_invoices, @invalid_invoices = 0 ,0
       @invoices = []
+      @errors = {}
+    end
+
+    def mark_error(maker:, error:, obj:)
+      @errors[maker] ||= {}
+      @errors[maker][error] ||= []
+
+      @errors[maker][error] << obj
     end
   end
 end

@@ -2,6 +2,6 @@
 
 require 'shoplex'
 
-puts Shoplex::process ARGF.read
+puts Shoplex::process(ARGF.read).csv_out
 
 exit 0

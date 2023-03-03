@@ -14,6 +14,8 @@ module Shoplex
             result.invoices << create_invoice_from(row:)
           rescue => e
             result.mark_error(maker: self, error: :creation_failed, obj: [e, row])
+            STDERR.puts e
+            STDERR.puts e.backtrace
           end
         else
           result.mark_error(maker: self, error: :no_invoice_number, obj: row)

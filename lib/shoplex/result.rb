@@ -1,7 +1,8 @@
 module Shoplex
   class Result
     attr_accessor :invoices
-    attr_accessor :errors
+    attr_reader   :errors
+    attr_accessor :csv_out
 
     def initialize
       @invoices = []

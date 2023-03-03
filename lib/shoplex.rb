@@ -15,16 +15,19 @@ module Shoplex
   class Error < StandardError; end
 
   def self.process file_content
-    shopware_invoices = Shoplex::ShopwareCSVParser.parse(file_content).invoices
-    bookings = shopware_invoices.map do |invoice|
+    result = Shoplex::ShopwareCSVParser.parse(file_content)
+    bookings = result.invoices.map do |invoice|
       begin
         Shoplex::ShippingSplitter::apply!(invoice:)
         Shoplex::InvoiceBookingConverter.convert(invoice:)
       rescue => e
+        result.mark_error(maker: self, error: :unknown, obj: [e, invoice])
         STDERR.puts e
+        STDERR.puts e.backtrace
       end
     end.compact
 
-    return Shoplex::LexwareCSV.create_from(bookings:)
+    result.csv_out = Shoplex::LexwareCSV.create_from(bookings:)
+    return result
   end
 end

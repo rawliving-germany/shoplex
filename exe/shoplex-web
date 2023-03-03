@@ -87,9 +87,10 @@ __END__
   %h2 Result
   %h3 Errors and invoices to look out for
   %div(style="color: red")
-    Errors here
+    #{@result.errors.count} errors here
+    #{@result.errors.inspect}
   %h3 Lexware file
-  %a{role: 'button', href:"data:attachment/csv;charset=utf-8,#{URI.encode_www_form_component @result}", target: '_blank', download: 'filename.csv'}
+  %a{role: 'button', href:"data:attachment/csv;charset=utf-8,#{URI.encode_www_form_component @result.csv_out}", target: '_blank', download: 'filename.csv'}
     Download file
   %pre
-    = @result
+    = @result.csv_out

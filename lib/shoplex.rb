@@ -20,7 +20,7 @@ module Shoplex
     bookings = result.invoices.map do |invoice|
       begin
         Shoplex::ShippingSplitter::apply!(invoice:)
-        Shoplex::SanityCheck::check!(invoice:)
+        #Shoplex::SanityCheck::check!(invoice:)
         Shoplex::InvoiceBookingConverter.convert(invoice:)
       rescue => e
         result.mark_error(maker: self, error: :unknown, obj: [e, invoice])

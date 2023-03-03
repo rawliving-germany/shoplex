@@ -4,12 +4,11 @@ module Shoplex
                                :firstname, :lastname,
                                :country,
                                :order_time,
-                               :invoice_amount,
+                               :invoice_amount, :invoice_amount_net,
                                :tax00_amount,
                                :tax07_amount,
                                :tax19_amount,
-                               :shipping_gross,
-                               :shipping_net,
+                               :shipping_gross, :shipping_net,
                                keyword_init: true) do
     def german?
       country == "Deutschland"

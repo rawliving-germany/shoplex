@@ -26,14 +26,15 @@ module Shoplex
     end
 
     def self.convert_tax_numbers!(row:)
-      row["taxRateSums_7"]   = row["taxRateSums_7"].to_f
-      row["taxRateSums_19"]  = row["taxRateSums_19"].to_f
+      row["taxRateSums_7"]  = row["taxRateSums_7"].to_f
+      row["taxRateSums_19"] = row["taxRateSums_19"].to_f
     end
 
     def self.convert_shipping_and_amount__numbers!(row:)
       row["invoiceShipping"]    = row["invoiceShipping"].to_s.gsub(",",".").to_f
       row["invoiceShippingNet"] = row["invoiceShippingNet"].to_s.gsub(",",".").to_f
       row["invoiceAmount"]      = row["invoiceAmount"].to_s.gsub(",",".").to_f
+      row["invoiceAmountNet"]   = row["invoiceAmountNet"].to_s.gsub(",",".").to_f
     end
 
     def self.create_invoice_from(row:)
@@ -44,6 +45,7 @@ module Shoplex
                           tax07_amount:   row['taxRateSums_7'],
                           tax19_amount:   row['taxRateSums_19'],
                           invoice_amount: row['invoiceAmount'],
+                          invoice_amount_net: row['invoiceAmountNet'],
                           shipping_gross: row['invoiceShipping'],
                           shipping_net:   row['invoiceShippingNet'],
                           country:        row['billingCountry'],

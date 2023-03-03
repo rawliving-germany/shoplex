@@ -28,7 +28,7 @@ module Shoplex
     end
 
     def self.add_tax_booking_line(invoice:, booking:, type:, account_number_method:, invoice_amount_accessor:)
-      return if invoice.send(invoice_amount_accessor).nil?
+      return if invoice.send(invoice_amount_accessor).to_f == 0.0
 
       line = Shoplex::BookingLine.new(
         sending_account: 0,

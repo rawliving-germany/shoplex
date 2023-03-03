@@ -8,7 +8,8 @@ It supports the management of cash flow in Lexware.
 
 The solution is specific for one customers needs. If you need a similar (or better) solution, contact us!
 
-It is hacked in pretty vanilla (and as of writing, recent) Ruby 3.2.1+ .
+It is hacked in pretty vanilla (and as of writing, recent) Ruby 3.2.1+ and comes
+with a sinatra (old school, single fileish) web interface.
 
 ## Installation
 
@@ -36,7 +37,7 @@ Customer accounts are hard coded.
 
 *We don't know yet*
 
-**Does EU-ity depend on shipping or billing address*
+**Does EU-ity depend on shipping or billing address**
 
 *We don't know yet*
 
@@ -46,7 +47,7 @@ Customer accounts are hard coded.
 
 **Where is the tax of the shipping costs?**
 
-The **invoiceAmount is inclusive the invoiceShipping**
+The **invoiceAmount is inclusive the invoiceShipping**.
 Taxes of the shipping is not included in the individual tax columns but calculated via percentage (anteilsmäßig).
 
 **Which invoices or orders to take into account?**

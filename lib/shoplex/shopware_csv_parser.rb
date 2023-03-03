@@ -2,18 +2,8 @@ require 'csv'
 
 module Shoplex
   class ShopwareCSVParser
-    class Result
-      attr_accessor :valid_invoices, :invalid_invoices
-      attr_accessor :invoices
-
-      def initialize
-        @valid_invoices, @invalid_invoices = 0 ,0
-        @invoices = []
-      end
-    end
-
     def self.parse csv_file_content
-      result = Result.new
+      result = Shoplex::Result.new
 
       CSV.parse(csv_file_content, headers: true, col_sep: ';', converters:
                 :date_time, encoding: Encoding::ISO_8859_1) do |row|

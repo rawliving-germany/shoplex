@@ -103,3 +103,5 @@ for automatic server reloads in development.
 As a service you can take the template in [webui/shoplex.service], link it (e.g.
 `ln -s /home/rawbotz/shoplex/webui/shoplex.service  /etc/systemd/system/shoplex.service`) and
 start it (`service shoplex restart`)
+
+A [nginx snippet](webui/nginx-snippet.conf) for SSL termination is included.

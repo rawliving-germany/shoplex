@@ -10,4 +10,10 @@ class TestSanityCheck < Minitest::Test
       Shoplex::SanityCheck.check!(invoice:)
     end
   end
+
+  def test_that_it_does_not_raises_on_match
+    invoice = Shoplex::ShopwareInvoice.new(invoice_amount: 107, invoice_amount_net: 100,
+                                  tax07_amount: 107)
+    Shoplex::SanityCheck.check!(invoice:)
+  end
 end

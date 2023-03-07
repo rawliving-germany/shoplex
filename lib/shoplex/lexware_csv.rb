@@ -1,7 +1,7 @@
 module Shoplex
   class LexwareCSV
     def self.create_from(bookings:)
-      CSV.generate do |csv|
+      CSV.generate(encoding: Encoding::ISO_8859_1) do |csv|
         bookings.each do |booking|
           booking.booking_lines.each do |line|
             csv << [

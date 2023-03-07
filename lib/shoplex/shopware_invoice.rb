@@ -30,5 +30,12 @@ module Shoplex
       country == "Deutschland"
     end
 
+    def tax07_gross_computed
+      tax07_amount / 0.07 * 1.07
+    end
+
+    def tax19_gross_computed
+      tax19_amount / 0.19 * 1.19
+    end
   end
 end

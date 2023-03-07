@@ -30,8 +30,5 @@ module Shoplex
       country == "Deutschland"
     end
 
-    def swiss?
-      county == "Schweiz"
-    end
   end
 end

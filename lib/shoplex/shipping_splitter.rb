@@ -18,5 +18,20 @@ module Shoplex
       invoice.tax19_amount = invoice.tax19_amount.round(2)
       invoice.tax07_amount = invoice.tax07_amount.round(2)
     end
+
+    def self.split(shipping_net:, shipping_gross:)
+      return Hash.new(0) if shipping_gross.to_i == 0
+
+      ratio_07 = (119 / 12.0) - (25 * shipping_gross) / (3 * shipping_net)
+      ratio_19 = 1.0 - ratio_07
+
+      shipping_cost_07part = shipping_gross * ratio_07
+      shipping_cost_19part = shipping_gross * ratio_19
+
+      {
+        shipping_cost_07part:,
+        shipping_cost_19part:
+      }
+    end
   end
 end

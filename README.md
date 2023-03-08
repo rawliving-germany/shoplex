@@ -105,3 +105,9 @@ As a service you can take the template in [webui/shoplex.service], link it (e.g.
 start it (`service shoplex restart`)
 
 A [nginx snippet](webui/nginx-snippet.conf) for SSL termination is included.
+
+## Development story
+
+Initialyy it was thought that `ShopwareInvoice` and `Booking` can be rather
+immutable representations. Even thought using Rubys (as of writing) new `Data`
+for it. As it turns out, input data is **always** dirty.

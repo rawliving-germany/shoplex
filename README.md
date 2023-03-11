@@ -66,6 +66,14 @@ No.
 
 We round up.
 
+**Which date to take?**
+
+Date of Invoice
+
+**Which country to take?**
+
+Shipping (not billing)
+
 ## Other
 
 To experiment with that code, run `bin/console` for an interactive prompt.

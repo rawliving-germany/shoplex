@@ -27,7 +27,7 @@ module Shoplex
     end
 
     def german?
-      country == "Deutschland"
+      country == "DE"
     end
 
     def tax07_gross_computed

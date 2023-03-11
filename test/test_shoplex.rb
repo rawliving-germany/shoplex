@@ -8,12 +8,14 @@ class TestShoplex < Minitest::Test
   end
 
   def test_it_ignores_lines_without_invoice_number
-    result_file_content = Shoplex::process(File.read('test/files/two_lines_one_invoice_shopware.csv', encoding: Encoding::ISO_8859_1)).csv_out
+    input_file_content = File.read('test/files/three_invoices_shopware.csv', encoding: Encoding::UTF_8)
+    result_file_content = Shoplex::process(input_file_content).csv_out
     assert_equal 3, result_file_content.lines.count
   end
 
   def test_it_does_the_whole_shebang
-    result_file_content = Shoplex::process(File.read('test/files/two_lines_one_invoice_shopware.csv', encoding: Encoding::ISO_8859_1)).csv_out
+    input_file_content = File.read('test/files/three_invoices_shopware.csv', encoding: Encoding::UTF_8)
+    result_file_content = Shoplex::process(input_file_content).csv_out
     expected = <<~CSV
      26.10.2022,6010,6010 90067  LastNameOfBill,59.39,11100,0,EUR
      26.10.2022,6010,6010 90067  LastNameOfBill,2.23,0,8300,EUR

@@ -3,7 +3,7 @@ module Shoplex
     class GrossDoesNotMatchNet < StandardError ; end
     TOLERANCE = 0.01
     def self.check!(invoice:)
-      gross_tax_sum = (invoice.tax07_amount + invoice.tax19_amount) + invoice.shipping_net
+      gross_tax_sum = (invoice.tax07_amount + invoice.tax19_amount)
       if absdiff(invoice.invoice_amount, gross_tax_sum) >= TOLERANCE
         raise GrossDoesNotMatchNet.new(
           "Gross amount #{invoice.invoice_amount} does not equal tax sums "\

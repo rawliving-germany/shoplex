@@ -3,7 +3,7 @@
 require "test_helper"
 
 class TestShippingSlitter < Minitest::Test
-  def test_it_assigns_shuppung_to_19_if_all_articles_are_19_percent
+  def test_it_assigns_shippung_to_19_if_all_articles_are_19_percent
     invoice = Shoplex::ShopwareInvoice.new(invoice_amount:   20,
                                            shipping_gross: 4.95,
                                            shipping_net:   4.16,

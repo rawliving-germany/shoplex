@@ -71,9 +71,9 @@ class TestInvoiceBookingConverter < Minitest::Test
     booking = Shoplex::InvoiceBookingConverter.convert(invoice:)
     line = booking.line(type: :tax07)
 
-    assert_equal      0, line.sending_account
-    assert_equal   8310, line.receiving_account
-    assert_equal 118.77, line.gross_amount
+    assert_equal    0, line.sending_account
+    assert_equal 8310, line.receiving_account
+    assert_equal 7.77, line.gross_amount
   end
 
   def test_it_gets_the_tax_amounts_right
@@ -82,8 +82,9 @@ class TestInvoiceBookingConverter < Minitest::Test
                                            lastname: 'Gerdz')
     booking = Shoplex::InvoiceBookingConverter.convert(invoice:)
 
-    assert_equal 118.77, booking.line(type: :tax07).gross_amount
-    assert_equal 120.19, booking.line(type: :tax19).gross_amount
+    #assert_equal "0.33", booking.line(type: :tax00).gross_amount
+    assert_equal  7.77, booking.line(type: :tax07).gross_amount
+    assert_equal 19.19, booking.line(type: :tax19).gross_amount
   end
 
   def test_it_sets_the_correct_reference

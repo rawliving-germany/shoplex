@@ -5,8 +5,8 @@ module Shoplex
 
       add_gross_booking_line(invoice:, booking:)
       [
-        [:tax07, AccountNumber::method(:receiving_tax07), :tax07_gross_computed],
-        [:tax19, AccountNumber::method(:receiving_tax19), :tax19_gross_computed],
+        [:tax07, AccountNumber::method(:receiving_tax07), :tax07_amount],
+        [:tax19, AccountNumber::method(:receiving_tax19), :tax19_amount],
       ].each do |type, account_number_method, invoice_amount_accessor|
         add_tax_booking_line(invoice:, booking:, type:, account_number_method:, invoice_amount_accessor:)
       end

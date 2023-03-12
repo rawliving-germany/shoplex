@@ -15,12 +15,21 @@ class TestShoplex < Minitest::Test
 
   def test_it_does_the_whole_shebang
     input_file_content = File.read('test/files/three_invoices_shopware.csv', encoding: Encoding::UTF_8)
+
     result_file_content = Shoplex::process(input_file_content).csv_out
+
     expected = <<~CSV
-     26.10.2022,6010,6010 90067  LastNameOfBill,59.39,11100,0,EUR
-     26.10.2022,6010,6010 90067  LastNameOfBill,2.23,0,8300,EUR
-     26.10.2022,6010,6010 90067  LastNameOfBill,4.04,0,8400,EUR
-    CSV
+     26.10.2022,6010,6010 90061  TheLastName,59.39,11900,0,EUR
+     26.10.2022,6010,6010 90061  TheLastName,33.16,0,8300,EUR
+     26.10.2022,6010,6010 90061  TheLastName,26.23,0,8400,EUR
+     26.10.2022,6009,6009 90062  \xDCml\xE4ut,95.67,12000,0,EUR
+     26.10.2022,6009,6009 90062  \xDCml\xE4ut,95.67,0,8300,EUR
+     26.10.2022,6008,6008 90063  Zash,124.49,12500,0,EUR
+     26.10.2022,6008,6008 90063  Zash,124.49,0,8300,EUR
+    CSV.encode("iso-8859-1").force_encoding("utf-8")
+    # -> netto 53,12
+    # ->  7: 2,23
+    # -> 19: 4,04
     assert_equal expected.strip,
       result_file_content.strip
   end

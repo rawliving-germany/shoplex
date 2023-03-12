@@ -6,7 +6,7 @@ module Shoplex
       result = Shoplex::Result.new
 
       CSV.parse(csv_file_content, headers: true, col_sep: ';', converters:
-                :date_time, encoding: Encoding::ISO_8859_1) do |row|
+                :date_time, encoding: Encoding::UTF_8) do |row|
         if row['Dokument ID']
           begin
             convert_tax_numbers!(row:)

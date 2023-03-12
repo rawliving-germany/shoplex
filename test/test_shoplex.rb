@@ -22,11 +22,17 @@ class TestShoplex < Minitest::Test
      26.10.2022,6010,6010 90061  TheLastName,59.39,11900,0,EUR
      26.10.2022,6010,6010 90061  TheLastName,33.16,0,8300,EUR
      26.10.2022,6010,6010 90061  TheLastName,26.23,0,8400,EUR
-     26.10.2022,6009,6009 90062  \xDCml\xE4ut,95.67,12000,0,EUR
-     26.10.2022,6009,6009 90062  \xDCml\xE4ut,95.67,0,8300,EUR
+     26.10.2022,6009,6009 90062  Ümläut,95.67,12000,0,EUR
+     26.10.2022,6009,6009 90062  Ümläut,95.67,0,8300,EUR
      26.10.2022,6008,6008 90063  Zash,124.49,12500,0,EUR
      26.10.2022,6008,6008 90063  Zash,124.49,0,8300,EUR
-    CSV.encode("iso-8859-1").force_encoding("utf-8")
+    CSV
+
+    expected = expected.encode(Encoding::ISO_8859_1,
+                     invalid: :replace,
+                     undef: :replace,
+                     replace: '#').force_encoding(Encoding::ISO_8859_1)
+
     # -> netto 53,12
     # ->  7: 2,23
     # -> 19: 4,04

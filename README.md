@@ -62,9 +62,23 @@ Lexware takes **gross** numbers
 
 No.
 
+**We cannot reconstruct the gross values from the net values, what do we do?**
+
+We round up.
+
+**Which date to take?**
+
+Date of Invoice
+
+**Which country to take?**
+
+Shipping (not billing)
+
 ## Other
 
 To experiment with that code, run `bin/console` for an interactive prompt.
+
+Tests are implemented with minitest. Run `guard` for continuous test runs.
 
 ## Contributing
 
@@ -110,4 +124,5 @@ A [nginx snippet](webui/nginx-snippet.conf) for SSL termination is included.
 
 Initialyy it was thought that `ShopwareInvoice` and `Booking` can be rather
 immutable representations. Even thought using Rubys (as of writing) new `Data`
-for it. As it turns out, input data is **always** dirty.
+for it. As it turns out, input data is **always** dirty. A health issue led me
+to write half of the code with my left hand only.

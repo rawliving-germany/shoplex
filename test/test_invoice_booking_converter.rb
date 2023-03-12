@@ -11,9 +11,9 @@ class TestInvoiceBookingConverter < Minitest::Test
 
   def test_it_creates_3_lines_from_double_taxed_invoice
     invoice = Shoplex::ShopwareInvoice.new(lastname: 'Bok',
-                                          invoice_amount: 100.0,
-                                          tax07_amount: 7.0,
-                                          tax19_amount: 19.0)
+                                           invoice_amount: 100.0,
+                                           tax07_amount: 7.0,
+                                           tax19_amount: 19.0)
     result = Shoplex::InvoiceBookingConverter.convert(invoice:)
     assert_equal 3, result.booking_lines.count
   end
@@ -53,7 +53,7 @@ class TestInvoiceBookingConverter < Minitest::Test
     invoice = Shoplex::ShopwareInvoice.new(invoice_amount: 12.0,
                                            tax07_amount: 7.77, tax19_amount: 19.19,
                                            lastname: 'Gerdz',
-                                           country: 'Deutschland')
+                                           country: 'DE')
     booking = Shoplex::InvoiceBookingConverter.convert(invoice:)
     line = booking.line(type: :tax07)
 
@@ -71,9 +71,9 @@ class TestInvoiceBookingConverter < Minitest::Test
     booking = Shoplex::InvoiceBookingConverter.convert(invoice:)
     line = booking.line(type: :tax07)
 
-    assert_equal      0, line.sending_account
-    assert_equal   8310, line.receiving_account
-    assert_equal 118.77, line.gross_amount
+    assert_equal    0, line.sending_account
+    assert_equal 8310, line.receiving_account
+    assert_equal 7.77, line.gross_amount
   end
 
   def test_it_gets_the_tax_amounts_right
@@ -82,8 +82,9 @@ class TestInvoiceBookingConverter < Minitest::Test
                                            lastname: 'Gerdz')
     booking = Shoplex::InvoiceBookingConverter.convert(invoice:)
 
-    assert_equal 118.77, booking.line(type: :tax07).gross_amount
-    assert_equal 120.19, booking.line(type: :tax19).gross_amount
+    #assert_equal "0.33", booking.line(type: :tax00).gross_amount
+    assert_equal  7.77, booking.line(type: :tax07).gross_amount
+    assert_equal 19.19, booking.line(type: :tax19).gross_amount
   end
 
   def test_it_sets_the_correct_reference

@@ -27,7 +27,7 @@ module Shoplex
     end
 
     def german?
-      country == "Deutschland"
+      country == "DE"
     end
 
     def tax07_gross_computed
@@ -40,12 +40,18 @@ module Shoplex
 
     def shipping_tax07_computed
       ShippingSplitter.split(shipping_net:,
-                             shipping_gross:)[:shipping_cost_07part]
+                             shipping_gross:,
+                             tax07_gross_amount: tax07_amount,
+                             tax19_gross_amount: tax19_amount,
+                            )[:shipping_cost_07part]
     end
 
     def shipping_tax19_computed
       ShippingSplitter.split(shipping_net:,
-                             shipping_gross:)[:shipping_cost_19part]
+                             shipping_gross:,
+                             tax07_gross_amount: tax07_amount,
+                             tax19_gross_amount: tax19_amount,
+                            )[:shipping_cost_19part]
     end
   end
 end

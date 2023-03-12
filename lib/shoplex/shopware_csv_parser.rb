@@ -6,8 +6,8 @@ module Shoplex
       result = Shoplex::Result.new
 
       CSV.parse(csv_file_content, headers: true, col_sep: ';', converters:
-                :date_time, encoding: Encoding::ISO_8859_1) do |row|
-        if row['invoiceNumber']
+                :date_time, encoding: Encoding::UTF_8) do |row|
+        if row['Dokument ID']
           begin
             convert_tax_numbers!(row:)
             convert_shipping_and_amount_numbers!(row:)
@@ -26,30 +26,30 @@ module Shoplex
     end
 
     def self.convert_tax_numbers!(row:)
-      row["taxRateSums_7"]  = row["taxRateSums_7"].to_f
-      row["taxRateSums_19"] = row["taxRateSums_19"].to_f
+      row["Bruttobetrag 7%"]  = row["Bruttobetrag 7%"].to_s.gsub(',','.').to_f
+      row["Bruttobetrag 19%"] = row["Bruttobetrag 19%"].to_s.gsub(',','.').to_f
     end
 
     def self.convert_shipping_and_amount_numbers!(row:)
-      row["invoiceShipping"]    = row["invoiceShipping"].to_s.gsub(",",".").to_f
-      row["invoiceShippingNet"] = row["invoiceShippingNet"].to_s.gsub(",",".").to_f
-      row["invoiceAmount"]      = row["invoiceAmount"].to_s.gsub(",",".").to_f
-      row["invoiceAmountNet"]   = row["invoiceAmountNet"].to_s.gsub(",",".").to_f
+      row["Brutto Versandkosten"] = row["Brutto Versandkosten"].to_s.gsub(",",".").to_f
+      row["Netto Versandkosten"]  = row["Netto Versandkosten"].to_s.gsub(",",".").to_f
+      row["Bruttobetrag"]         = row["Bruttobetrag"].to_s.gsub(",",".").to_f
+      row["Nettobetrag"]          = row["Nettobetrag"].to_s.gsub(",",".").to_f
     end
 
     def self.create_invoice_from(row:)
-      ShopwareInvoice.new(invoice_number: row["invoiceNumber"],
-                          order_number:   row['orderNumber'],
-                          order_time:     row['orderTime'],
-                          tax00_amount:   row['taxRateSums_0'],
-                          tax07_amount:   row['taxRateSums_7'],
-                          tax19_amount:   row['taxRateSums_19'],
-                          invoice_amount: row['invoiceAmount'],
-                          invoice_amount_net: row['invoiceAmountNet'],
-                          shipping_gross: row['invoiceShipping'],
-                          shipping_net:   row['invoiceShippingNet'],
-                          country:        row['billingCountry'],
-                          lastname:       row['billingLastName'],)
+      ShopwareInvoice.new(invoice_number: row["Dokument ID"],
+                          order_number:   row['Bestellnummer'],
+                          order_time:     row['Datum der Bestellung'],
+                          tax00_amount:   row['Bruttobetrag 0%'],
+                          tax07_amount:   row['Bruttobetrag 7%'],
+                          tax19_amount:   row['Bruttobetrag 19%'],
+                          invoice_amount: row['Bruttobetrag'],
+                          invoice_amount_net: row['Nettobetrag'],
+                          shipping_gross: row['Brutto Versandkosten'],
+                          shipping_net:   row['Netto Versandkosten'],
+                          country:        row['Land'],
+                          lastname:       row['Nachname'],)
     end
   end
 end

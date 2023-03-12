@@ -8,17 +8,34 @@ class TestShoplex < Minitest::Test
   end
 
   def test_it_ignores_lines_without_invoice_number
-    result_file_content = Shoplex::process(File.read('test/files/two_lines_one_invoice_shopware.csv', encoding: Encoding::ISO_8859_1)).csv_out
+    input_file_content = File.read('test/files/three_invoices_shopware.csv', encoding: Encoding::UTF_8)
+    result_file_content = Shoplex::process(input_file_content).csv_out
     assert_equal 3, result_file_content.lines.count
   end
 
   def test_it_does_the_whole_shebang
-    result_file_content = Shoplex::process(File.read('test/files/two_lines_one_invoice_shopware.csv', encoding: Encoding::ISO_8859_1)).csv_out
+    input_file_content = File.read('test/files/three_invoices_shopware.csv', encoding: Encoding::UTF_8)
+
+    result_file_content = Shoplex::process(input_file_content).csv_out
+
     expected = <<~CSV
-     26.10.2022,6010,6010 90067  LastNameOfBill,59.39,11100,0,EUR
-     26.10.2022,6010,6010 90067  LastNameOfBill,2.23,0,8300,EUR
-     26.10.2022,6010,6010 90067  LastNameOfBill,4.04,0,8400,EUR
+     26.10.2022,6010,6010 90061  TheLastName,59.39,11900,0,EUR
+     26.10.2022,6010,6010 90061  TheLastName,33.16,0,8300,EUR
+     26.10.2022,6010,6010 90061  TheLastName,26.23,0,8400,EUR
+     26.10.2022,6009,6009 90062  Ümläut,95.67,12000,0,EUR
+     26.10.2022,6009,6009 90062  Ümläut,95.67,0,8300,EUR
+     26.10.2022,6008,6008 90063  Zash,124.49,12500,0,EUR
+     26.10.2022,6008,6008 90063  Zash,124.49,0,8300,EUR
     CSV
+
+    expected = expected.encode(Encoding::ISO_8859_1,
+                     invalid: :replace,
+                     undef: :replace,
+                     replace: '#').force_encoding(Encoding::ISO_8859_1)
+
+    # -> netto 53,12
+    # ->  7: 2,23
+    # -> 19: 4,04
     assert_equal expected.strip,
       result_file_content.strip
   end

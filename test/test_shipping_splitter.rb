@@ -3,7 +3,7 @@
 require "test_helper"
 
 class TestShippingSlitter < Minitest::Test
-  def test_it_assigns_shuppung_to_19_if_all_articles_are_19_percent
+  def test_it_assigns_shipping_to_19_if_all_articles_are_19_percent
     invoice = Shoplex::ShopwareInvoice.new(invoice_amount:   20,
                                            shipping_gross: 4.95,
                                            shipping_net:   4.16,
@@ -11,7 +11,10 @@ class TestShippingSlitter < Minitest::Test
 
     shipping07, shipping19 = Shoplex::ShippingSplitter.split(
       shipping_net:   invoice.shipping_net,
-      shipping_gross: invoice.shipping_gross).values
+      shipping_gross: invoice.shipping_gross,
+      tax07_gross_amount: invoice.tax07_amount,
+      tax19_gross_amount: invoice.tax19_amount
+    ).values
 
     assert_in_delta  0.0, shipping07, 0.04
     assert_in_delta 4.95, shipping19, 0.04
@@ -25,7 +28,10 @@ class TestShippingSlitter < Minitest::Test
 
     shipping07, shipping19 = Shoplex::ShippingSplitter.split(
       shipping_net:   invoice.shipping_net,
-      shipping_gross: invoice.shipping_gross).values
+      shipping_gross: invoice.shipping_gross,
+      tax07_gross_amount: invoice.tax07_amount,
+      tax19_gross_amount: invoice.tax19_amount
+    ).values
 
     assert_in_delta 10.7, shipping07, 0.04
     assert_in_delta 0.00, shipping19, 0.04
@@ -40,12 +46,37 @@ class TestShippingSlitter < Minitest::Test
 
     shipping07, shipping19 = Shoplex::ShippingSplitter.split(
       shipping_net:   invoice.shipping_net,
-      shipping_gross: invoice.shipping_gross).values
+      shipping_gross: invoice.shipping_gross,
+      tax07_gross_amount: invoice.tax07_amount,
+      tax19_gross_amount: invoice.tax19_amount
+    ).values
 
     assert_in_delta shipping07, shipping19, 0.04
 
     assert_in_delta 11.3, shipping07, 0.04
     assert_in_delta 11.3, shipping19, 0.04
   end
+
+  def test_it_calculates_correctly
+    invoice = Shoplex::ShopwareInvoice.new(
+      invoice_amount: 43,
+      shipping_gross: 4.95,
+      shipping_net:   4.5636175890865,
+      tax07_amount:  32.46,
+      tax19_amount:   5.59)
+
+    shipping07, shipping19 = Shoplex::ShippingSplitter.split(
+      shipping_net:   invoice.shipping_net,
+      shipping_gross: invoice.shipping_gross,
+      tax07_gross_amount: invoice.tax07_amount,
+      tax19_gross_amount: invoice.tax19_amount
+    ).values
+
+    assert_in_delta 4.95, (shipping07+ shipping19), 0.04
+
+    assert_in_delta 4.29, shipping07, 0.04
+    assert_in_delta 0.66, shipping19, 0.04
+  end
+
 end
 

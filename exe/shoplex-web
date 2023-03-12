@@ -93,4 +93,4 @@ __END__
   %a{role: 'button', href:"data:attachment/csv;charset=utf-8,#{URI.encode_www_form_component @result.csv_out}", target: '_blank', download: 'filename.csv'}
     Download file
   %pre
-    = @result.csv_out
+    = @result.csv_out.encode(Encoding::UTF_8)

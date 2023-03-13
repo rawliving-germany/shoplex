@@ -57,6 +57,19 @@ class TestShopwareCSVParser < Minitest::Test
     assert_equal 4.43, result.invoices.first.tax19_amount
   end
 
+  def test_it_survives_quote_characters
+    input = <<~CSV
+      "Dokument ID";"Nachname";"Bestellnummer";"...";"Nettobetrag";"Brutto Versandkosten";"...";"Bruttobetrag 7%";"Bruttobetrag 19%"
+      87150        ;i""i;           6010;     ;        59,39;                 53,12;     ;             4,95;             4,43
+    CSV
+    result = Shoplex::ShopwareCSVParser.parse input
+    assert_equal Float, result.invoices.first.tax07_amount.class
+    assert_equal Float, result.invoices.first.tax19_amount.class
+    assert_equal Float, result.invoices.first.shipping_gross.class
+    assert_equal 4.95, result.invoices.first.tax07_amount
+    assert_equal 4.43, result.invoices.first.tax19_amount
+  end
+
   def test_it_sets_country_correctly
     shopware_csv_file = File.read('test/files/three_invoices_shopware.csv', encoding: Encoding::ISO_8859_1)
     result = Shoplex::ShopwareCSVParser.parse shopware_csv_file

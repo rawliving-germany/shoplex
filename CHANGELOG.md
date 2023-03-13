@@ -1,6 +1,10 @@
 ## [Unreleased]
 
-## [0.4.0] - 2023-03-02
+## [0.4.2] - 2023-03-12
+
+- Survive quote chars in csv
+
+## [0.4.0] - 2023-03-12
 
 - Set right wrong output encoding
 - Calcuate Shipping gross amounts

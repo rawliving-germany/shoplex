@@ -29,7 +29,11 @@ Customer accounts are hard coded.
 
 ## Documentation of process
 
-
+- export order data from shopware to file
+- run the script or start the webui and upload
+  - shoplex will scale the shipping cost and add it to the tax amounts
+  - shoplex will output an ISO_8859_1 encoded file
+- import file in lexware
 
 ## Open questions and/or answers
 

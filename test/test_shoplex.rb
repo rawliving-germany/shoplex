@@ -13,6 +13,28 @@ class TestShoplex < Minitest::Test
     assert_equal 3, result_file_content.lines.count
   end
 
+  def test_it_works_for_single_taxed
+    input_file_content = File.read('test/files/single_tax_lines.csv', encoding: Encoding::UTF_8)
+
+    result_file_content = Shoplex::process(input_file_content).csv_out
+
+    expected = <<~CSV
+     31.10.2022,6130,6130 90196  Smith,49.44,11800,0,EUR
+     31.10.2022,6130,6130 90196  Smith,49.44,0,8300,EUR
+    CSV
+
+    expected = expected.encode(Encoding::ISO_8859_1,
+                     invalid: :replace,
+                     undef: :replace,
+                     replace: '#').force_encoding(Encoding::ISO_8859_1)
+
+    # -> netto 53,12
+    # ->  7: 2,23
+    # -> 19: 4,04
+    assert_equal expected.strip,
+      result_file_content.strip
+  end
+
   def test_it_does_the_whole_shebang
     input_file_content = File.read('test/files/three_invoices_shopware.csv', encoding: Encoding::UTF_8)
 

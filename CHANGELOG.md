@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+## [0.4.3] - 2023-03-14
+
+- Fix spaces in downloadable csv file.
+- Fix shipping splitter apply (switched tax rates).
+
 ## [0.4.2] - 2023-03-12
 
 - Survive quote chars in csv

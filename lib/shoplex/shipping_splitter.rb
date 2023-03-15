@@ -13,8 +13,8 @@ module Shoplex
         tax19_gross_amount: invoice.tax19_amount
       ).values
 
-      invoice.tax19_amount += shipping07
-      invoice.tax07_amount += shipping19
+      invoice.tax19_amount += shipping19
+      invoice.tax07_amount += shipping07
     end
 
     def self.split(

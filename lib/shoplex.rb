@@ -3,6 +3,7 @@
 require_relative "shoplex/version"
 require_relative "shoplex/account_number"
 require_relative "shoplex/booking"
+require_relative "shoplex/booking_joiner"
 require_relative "shoplex/booking_line"
 require_relative "shoplex/invoice_booking_converter"
 require_relative "shoplex/lexware_csv"
@@ -28,6 +29,8 @@ module Shoplex
         STDERR.puts e.backtrace
       end
     end.compact
+
+    bookings.each {|booking| Shoplex::BookingJoiner.merge! booking: }
 
     result.csv_out = Shoplex::LexwareCSV.create_from(bookings:)
     return result

@@ -19,8 +19,7 @@ class TestShoplex < Minitest::Test
     result_file_content = Shoplex::process(input_file_content).csv_out
 
     expected = <<~CSV
-     31.10.2022,6130,6130 90196  Smith,49.44,11800,0,EUR
-     31.10.2022,6130,6130 90196  Smith,49.44,0,8300,EUR
+     31.10.2022,6130,6130 90196  Smith,49.44,11800,8300,EUR
     CSV
 
     expected = expected.encode(Encoding::ISO_8859_1,

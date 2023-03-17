@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.4.4] - 2023-03-17
+
+- Join single booking lines
+
 ## [0.4.3] - 2023-03-15
 
 - Fix spaces in downloadable csv file.

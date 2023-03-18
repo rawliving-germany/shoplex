@@ -2,6 +2,7 @@ class Shoplex::AccountNumber
   def self.sending_gross(lastname:)
     char = lastname.encode(Encoding::UTF_8).strip.upcase[/[a-zA-ZÖÄÜ]/].chars.first
     char.gsub!(/[ÖÜÄ]/, 'Ä' => 'A', 'Ö' => 'O', 'Ü' => 'U')
+    char.gsub!(/[YZ]/, 'X') # capped at 12_300
 
     if char !~ /[A-Z]/
       raise ArgumentError, "Don't know account number for #{lastname} (does not start with a 'good' letter A-Z)"

@@ -38,4 +38,10 @@ class TestAccountNumber < Minitest::Test
     assert_equal Shoplex::AccountNumber::sending_gross(lastname: 'Matz'),
                  Shoplex::AccountNumber::sending_gross(lastname: ' & Matz')
   end
+
+  def test_that_12300_is_max_special_handling
+    ['Xylith', 'Ygman', 'Zoltosh'].each do |one_two_three|
+      assert_equal 12300, Shoplex::AccountNumber::sending_gross(lastname: one_two_three)
+    end
+  end
 end

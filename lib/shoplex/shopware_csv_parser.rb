@@ -2,6 +2,7 @@ require 'csv'
 
 module Shoplex
   class ShopwareCSVParser
+    class InvoiceNumberMissing < StandardError ; end
     def self.parse csv_file_content
       result = Shoplex::Result.new
 
@@ -19,7 +20,7 @@ module Shoplex
             STDERR.puts e.backtrace
           end
         else
-          result.mark_error(maker: self, error: :no_invoice_number, obj: row)
+          result.mark_error(maker: self, error: :no_invoice_number, obj: [InvoiceNumberMissing.new('invoice number missing'), row])
         end
       end
 

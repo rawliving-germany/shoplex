@@ -23,6 +23,10 @@ module Shoplex
         Shoplex::ShippingSplitter::apply!(invoice:)
         Shoplex::SanityCheck::check!(invoice:)
         Shoplex::InvoiceBookingConverter.convert(invoice:)
+      rescue Shoplex::SanityCheck::GrossDoesNotMatchNet => se
+        result.mark_error(maker: self, error: :sanity_check_failed, obj: [se, invoice])
+        STDERR.puts se
+        STDERR.puts se.backtrace
       rescue => e
         result.mark_error(maker: self, error: :unknown, obj: [e, invoice])
         STDERR.puts e

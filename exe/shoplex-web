@@ -86,12 +86,37 @@ __END__
 %hr
 - if @result
   %h2 Result
-  %h3 Errors and invoices to look out for
-  %div(style="color: red")
-    #{@result.errors.count} errors here
-    #{@result.errors.inspect}
+  - if @result.errors
+    %h3 Errors and invoices to look out for
+    %div(style="color: red")
+      - @result.errors.each do |maker,errs|
+        - errs.each do |err_type,errors|
+          %details
+            %summary="#{maker}-#{err_type} (#{errors.count})"
+            %ul
+              - errors.each do |e|
+                %li
+                  !=haml :invoice_error, locals: {error: e[0], invoice: e[1]}
+      -##{@result.errors.inspect}
   %h3 Lexware file
   %a{role: 'button', href:"data:attachment/csv;charset=utf-8;base64,#{Base64.encode64 @result.csv_out}", target: '_blank', download: 'filename.csv'}
     Download file
   %pre
     = @result.csv_out.encode(Encoding::UTF_8)
+
+@@invoice_error
+%b=error.message
+%br
+%small=error.class
+- if invoice&.is_a? Shoplex::ShopwareInvoice
+  %table
+    %tr
+      %td=invoice.invoice_number
+      %td=invoice.order_number
+      %td=invoice.firstname
+      %td=invoice.lastname
+      %td=invoice.invoice_amount
+- else
+  %table
+    %tr
+      %td=invoice

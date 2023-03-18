@@ -78,6 +78,30 @@ class TestShopwareCSVParser < Minitest::Test
     assert_equal "DE", invoice.country
   end
 
+  def test_it_errs_on_disallowed_fields
+    head = <<~CSV
+      "Dokument ID";"Nachname";"Bestellnummer";"...";"Nettobetrag";"Brutto Versandkosten";"...";"Bruttobetrag 7%";"Bruttobetrag 19%"
+    CSV
+    content = <<~CSV
+      87150        ;"-name-";           6010;     ;        59,39;                 53,12;     ;             4,95;             4,43
+    CSV
+    disallowed_fields =[
+      "Bruttobetrag 0%","Bruttobetrag 9%","Bruttobetrag 10%","Bruttobetrag 13%","Bruttobetrag 14%","Bruttobetrag 17%","Bruttobetrag 20%","Bruttobetrag 21%","Bruttobetrag 23%","Bruttobetrag 25%","UST ID"
+    ]
+    disallowed_fields.each do |veto_field|
+      result = Shoplex::ShopwareCSVParser.parse(
+        head.strip    + ";" + veto_field + "\n" +
+        content.strip + ";" + "1.13"
+      )
+      assert_includes result.errors[Shoplex::ShopwareCSVParser]
+                      .values
+                      .flatten
+                      .map(&:class),
+        Shoplex::ShopwareCSVParser::DisallowedValues
+    end
+
+  end
+
   def test_it_catches_errors_and_add_them_to_result
     # assert false
   end

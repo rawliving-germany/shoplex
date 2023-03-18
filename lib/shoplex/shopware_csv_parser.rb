@@ -3,6 +3,8 @@ require 'csv'
 module Shoplex
   class ShopwareCSVParser
     class InvoiceNumberMissing < StandardError ; end
+    class DisallowedValues < StandardError ; end
+
     def self.parse csv_file_content
       result = Shoplex::Result.new
 
@@ -11,6 +13,7 @@ module Shoplex
                 converters: :date_time, encoding: Encoding::UTF_8) do |row|
         if row['Dokument ID']
           begin
+            sanity_check!(row:)
             convert_tax_numbers!(row:)
             convert_shipping_and_amount_numbers!(row:)
             result.invoices << create_invoice_from(row:)
@@ -52,6 +55,17 @@ module Shoplex
                           shipping_net:   row['Netto Versandkosten'],
                           country:        row['Land'],
                           lastname:       row['Nachname'],)
+    end
+
+    def self.sanity_check!(row:)
+      disallowed_fields =[
+        "Bruttobetrag 0%","Bruttobetrag 9%","Bruttobetrag 10%","Bruttobetrag 13%","Bruttobetrag 14%","Bruttobetrag 17%","Bruttobetrag 20%","Bruttobetrag 21%","Bruttobetrag 23%","Bruttobetrag 25%","UST ID"
+      ]
+      disallowed_fields.each do |f|
+        if row[f].to_s != ""
+          raise DisallowedValues.new("Value in '#{f}' not allowed")
+        end
+      end
     end
   end
 end

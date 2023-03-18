@@ -66,6 +66,11 @@ __END__
   %body
     %main.container
       != yield
+    %footer.container
+      %a(href="https://github.com/rawliving-germany/shoplex")
+        Shoplex
+      v
+      = Shoplex::VERSION
 
 @@index
 %h1 Shoplex

@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.4.5] - 2023-03-18
+
+- Improved error handling and display
+
 ## [0.4.4] - 2023-03-17
 
 - Join single booking lines

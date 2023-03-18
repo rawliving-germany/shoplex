@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [0.4.6] - 2023-03-18
+
 - Sanity check csv rows for disallowed values
 - Let 12300 be the last debitor account number
 - Include version number in web view

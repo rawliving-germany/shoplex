@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [0.4.7] - 2023-05-09
+
+- Use invoice date not order date
+
 ## [0.4.6] - 2023-03-18
 
 - Sanity check csv rows for disallowed values

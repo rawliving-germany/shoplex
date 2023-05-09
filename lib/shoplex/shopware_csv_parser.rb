@@ -45,7 +45,7 @@ module Shoplex
     def self.create_invoice_from(row:)
       ShopwareInvoice.new(invoice_number: row["Dokument ID"],
                           order_number:   row['Bestellnummer'],
-                          order_time:     row['Datum der Bestellung'],
+                          order_time:     row['Datum des Beleges'],
                           tax00_amount:   row['Bruttobetrag 0%'],
                           tax07_amount:   row['Bruttobetrag 7%'],
                           tax19_amount:   row['Bruttobetrag 19%'],
